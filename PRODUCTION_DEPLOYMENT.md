@@ -120,3 +120,19 @@ Everything is now live!
   ```bash
   sudo docker compose up -d --build
   ```
+
+---
+
+## 8. Special Considerations for Ubuntu Desktop 24.04
+
+Since you are running Ubuntu Desktop instead of Ubuntu Server, keep the following in mind to ensure your application remains available:
+
+1. **Disable Sleep/Suspend:** Desktop operating systems are often configured to go to sleep after inactivity. 
+   - Go to **Settings > Power** and set "Blank Screen" and "Automatic Suspend" to **Never** so the server doesn't shut down while applicants are trying to register.
+2. **Firewall (UFW):** If you plan to access this portal from other devices on the network, ensure your firewall allows web traffic.
+   ```bash
+   sudo ufw allow 80/tcp
+   sudo ufw allow 8080/tcp
+   ```
+3. **Port Conflicts:** Ensure you don't already have a local version of Apache or Nginx running on your desktop. If you do, it will block Docker from binding to port 80. You can stop local apache with `sudo systemctl stop apache2 && sudo systemctl disable apache2`.
+4. **Local Access:** You can access the portal directly on the desktop machine by opening a browser and going to `http://localhost`. To access it from other devices, use the desktop's local IP address (e.g., `http://192.168.1.50`), which you can find by running `ip a`.
