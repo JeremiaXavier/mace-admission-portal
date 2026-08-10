@@ -67,6 +67,20 @@ class AllotmentController extends BaseController
         return $this->response->setJSON(['success' => true]);
     }
 
+    public function unadmit()
+    {
+        $id = $this->request->getPost('id');
+
+        if (!$id) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Invalid data']);
+        }
+
+        $model = new AllotmentModel();
+        $model->update($id, ['allotted_course' => null]);
+
+        return $this->response->setJSON(['success' => true]);
+    }
+
     public function fetch()
     {
         $model = new AllotmentModel();

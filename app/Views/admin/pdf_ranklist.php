@@ -66,15 +66,14 @@
             <tr>
                 <th width="10%" class="text-center">Rank</th>
                 <th width="15%">Roll No</th>
-                <th width="30%">Applicant Name</th>
-                <th width="15%">Mobile</th>
+                <th width="40%">Applicant Name</th>
+                <th width="20%">Mobile</th>
                 <th width="15%" class="text-center">Option Pref</th>
-                <th width="15%" class="text-center">Status</th>
             </tr>
         </thead>
         <tbody>
             <?php if(empty($applicants)): ?>
-            <tr><td colspan="6" class="text-center" style="padding:20px;">No applicants found.</td></tr>
+            <tr><td colspan="5" class="text-center" style="padding:20px;">No applicants found.</td></tr>
             <?php else: ?>
                 <?php foreach($applicants as $app): ?>
                 <tr>
@@ -83,7 +82,6 @@
                     <td><?= esc($app['name']) ?></td>
                     <td><?= esc($app['mobile']) ?></td>
                     <td class="text-center"><strong><?= esc($app['pref']) ?></strong></td>
-                    <td class="text-center"><?= esc($app['status']) ?></td>
                 </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

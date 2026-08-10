@@ -42,6 +42,7 @@ $routes->group('admin', ['filter' => 'adminauth'], static function($routes) {
     $routes->get('ranklist/export_csv', 'Admin\AllotmentController::exportRanklistCsv');
     $routes->get('ranklist/export_pdf', 'Admin\AllotmentController::exportRanklistPdf');
     $routes->post('ranklist/admit',  'Admin\AllotmentController::admit');
+    $routes->post('ranklist/unadmit','Admin\AllotmentController::unadmit');
     
     // Reports
     $routes->get('reports',          'Admin\ReportsController::index');

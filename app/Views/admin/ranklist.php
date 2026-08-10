@@ -187,9 +187,19 @@
                     render: function(data, type, row) {
                         if (row.allotted_course) {
                             if (row.allotted_course === branch) {
-                                return `<span class="bg-green-100 text-green-800 px-3 py-1.5 rounded text-xs font-bold border border-green-200 shadow-sm"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Admitted</span>`;
+                                return `
+                                    <div class="flex items-center justify-end space-x-2">
+                                        <span class="bg-green-100 text-green-800 px-3 py-1.5 rounded text-xs font-bold border border-green-200 shadow-sm"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Admitted</span>
+                                        <button onclick="unadmitStudent(${row.id})" class="bg-red-100 hover:bg-red-200 text-red-600 px-2 py-1 rounded text-xs font-bold transition border border-red-200" title="Undo Admission"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                                    </div>
+                                `;
                             } else {
-                                return `<span class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded text-xs font-bold border border-gray-300">Admitted to ${row.allotted_course}</span>`;
+                                return `
+                                    <div class="flex items-center justify-end space-x-2">
+                                        <span class="bg-gray-100 text-gray-600 px-3 py-1.5 rounded text-xs font-bold border border-gray-300">Admitted to ${row.allotted_course}</span>
+                                        <button onclick="unadmitStudent(${row.id})" class="bg-red-100 hover:bg-red-200 text-red-600 px-2 py-1 rounded text-xs font-bold transition border border-red-200" title="Undo Admission"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                                    </div>
+                                `;
                             }
                         } else {
                             return `<button onclick="admitStudent(${row.id}, '${branch}')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded text-xs font-bold transition shadow-sm">Admit</button>`;
@@ -222,7 +232,7 @@
         window.open(`<?= base_url('admin/ranklist/export_pdf') ?>?branch=${encodeURIComponent(branch)}&category=${encodeURIComponent(category)}`, '_blank');
     };
 
-    function admitStudent(id, branch) {
+    window.admitStudent = function(id, branch) {
         if(confirm(`Are you sure you want to ADMIT this student to ${branch}?`)) {
             $.ajax({
                 url: '<?= base_url('admin/ranklist/admit') ?>',
@@ -241,7 +251,27 @@
                 }
             });
         }
-    }
+    };
+
+    window.unadmitStudent = function(id) {
+        if(confirm(`Are you sure you want to UNDO this admission? The student will be available to admit in another branch.`)) {
+            $.ajax({
+                url: '<?= base_url('admin/ranklist/unadmit') ?>',
+                type: 'POST',
+                data: {
+                    id: id,
+                    <?= csrf_token() ?>: '<?= csrf_hash() ?>'
+                },
+                success: function(response) {
+                    if(response.success) {
+                        dataTable.ajax.reload(null, false);
+                    } else {
+                        alert("Error un-admitting student.");
+                    }
+                }
+            });
+        }
+    };
 </script>
 
 <?= $this->endSection() ?>
