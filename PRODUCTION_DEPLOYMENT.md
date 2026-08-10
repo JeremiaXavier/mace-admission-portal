@@ -1,12 +1,45 @@
 # Production Deployment Guide
 
-This guide outlines how to deploy the MACE Spot Admission Portal onto a fresh, newly installed Linux server (e.g., Ubuntu/Debian). 
+This guide outlines how to deploy the MACE Spot Admission Portal onto a fresh, newly installed Linux server (e.g., Ubuntu Desktop 24.04 or Ubuntu Server). 
 
 Because the application is fully Dockerized, **you do not need to install PHP, Apache, or MySQL on your server**. Docker handles all of these dependencies internally in isolated containers.
 
 ---
 
-## 1. Install Docker & Docker Compose
+## Quick Start (For a Fresh Ubuntu OS)
+If you are on a completely fresh OS, here are the only 4 commands you need to get the entire portal live:
+
+**1. Install Docker & Docker Compose**
+```bash
+sudo apt-get update
+sudo apt-get install -y docker.io docker-compose-v2
+```
+
+**2. Copy/Clone the project**
+```bash
+git clone <your-repository-url> /home/user/admission_mace
+cd /home/user/admission_mace
+```
+
+**3. Build and Start Everything**
+*(You may want to edit `docker-compose.yml` first to set secure database passwords)*
+```bash
+sudo docker compose up -d --build
+```
+
+**4. Create the Database Tables**
+*(This tells CodeIgniter inside the container to build the database structure)*
+```bash
+sudo docker exec -it mace_admission_app php spark migrate
+```
+
+That's it! You can now open a browser on that machine and go to `http://localhost`.
+
+---
+
+## Detailed Guide
+
+### 1. Advanced Docker Installation (Optional)
 
 First, log into your fresh server via SSH. Run the following commands to install Docker and Docker Compose.
 
