@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mace_admission_app
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - CI_ENVIRONMENT=production
+      # Update baseURL to your actual production domain
+      - app.baseURL=https://admission.macesoft.in/
+      
+      # Database Connection
+      - database.default.hostname=db
+      - database.default.database=mace_admission
+      - database.default.username=mace_user
+      - database.default.password=mace_password
+      - database.default.DBDriver=MySQLi
+    volumes:
+      # Persist the writable directory (uploads, session, cache, settings.json)
+      - app_writable:/var/www/html/writable
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: mace_admission_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: mace_admission
+      MYSQL_USER: mace_user
+      MYSQL_PASSWORD: mace_password
+      MYSQL_ROOT_PASSWORD: strong_root_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+  app_writable:
