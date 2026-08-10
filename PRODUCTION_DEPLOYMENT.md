@@ -27,13 +27,7 @@ cd /home/user/admission_mace
 sudo docker compose up -d --build
 ```
 
-**4. Create the Database Tables**
-*(This tells CodeIgniter inside the container to build the database structure)*
-```bash
-sudo docker exec -it mace_admission_app php spark migrate
-```
-
-That's it! You can now open a browser on that machine and go to `http://localhost`.
+That's it! The container will automatically wait for the database to boot and run the migrations for you. You can now open a browser on that machine and go to `http://localhost`.
 
 ---
 
@@ -109,18 +103,9 @@ Docker will now:
 3. Install CodeIgniter's Composer dependencies optimally.
 4. Set up the file permissions for the persistent `writable/` folder.
 5. Wire the web app, database, and phpMyAdmin together securely.
+6. **Automatically run database migrations** to create your tables on first boot.
 
-## 5. Setup the Database Schema
-
-Since the database is brand new, you need to run CodeIgniter's database migrations to create the tables. 
-
-Run this command to execute migrations *inside* the running app container:
-
-```bash
-sudo docker exec -it mace_admission_app php spark migrate
-```
-
-## 6. Accessing Your Application
+## 5. Accessing Your Application
 
 Everything is now live!
 

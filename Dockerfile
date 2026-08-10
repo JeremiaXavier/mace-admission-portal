@@ -35,9 +35,13 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/writable \
     && chmod -R 775 /var/www/html/public
 
+# Copy entrypoint script and make it executable
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Install Composer dependencies (optimised for production)
 RUN composer install --no-dev --optimize-autoloader
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["/usr/local/bin/entrypoint.sh"]
