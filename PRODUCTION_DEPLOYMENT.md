@@ -154,3 +154,23 @@ Since you are running Ubuntu Desktop instead of Ubuntu Server, keep the followin
    ```
 3. **Port Conflicts:** Ensure you don't already have a local version of Apache or Nginx running on your desktop. If you do, it will block Docker from binding to port 80. You can stop local apache with `sudo systemctl stop apache2 && sudo systemctl disable apache2`.
 4. **Local Access:** You can access the portal directly on the desktop machine by opening a browser and going to `http://localhost`. To access it from other devices, use the desktop's local IP address (e.g., `http://192.168.1.50`), which you can find by running `ip a`.
+
+---
+
+## 9. Backing Up Your Database
+
+Since your application stores critical applicant data, you should regularly back up your database. You have two easy ways to do this:
+
+### Method A: Via phpMyAdmin (Easiest)
+1. Open your browser and go to `http://<your-server-ip>:8080/`.
+2. Log in using the username `root` and your `MYSQL_ROOT_PASSWORD`.
+3. Click on the `mace_admission` database on the left sidebar.
+4. Click the **Export** tab at the top.
+5. Leave the format as **SQL** and click **Export**. This will download a complete backup file to your computer.
+
+### Method B: Via Command Line
+If you want to quickly generate a backup file directly on the server, run this command:
+```bash
+sudo docker exec mace_admission_db mysqldump -u root -p'strong_root_password' mace_admission > /home/user/mace_admission_backup_$(date +%F).sql
+```
+*(Make sure to replace `'strong_root_password'` with the actual root password you set in `docker-compose.yml`)*
