@@ -1,0 +1,122 @@
+# Production Deployment Guide
+
+This guide outlines how to deploy the MACE Spot Admission Portal onto a fresh, newly installed Linux server (e.g., Ubuntu/Debian). 
+
+Because the application is fully Dockerized, **you do not need to install PHP, Apache, or MySQL on your server**. Docker handles all of these dependencies internally in isolated containers.
+
+---
+
+## 1. Install Docker & Docker Compose
+
+First, log into your fresh server via SSH. Run the following commands to install Docker and Docker Compose.
+
+```bash
+# Update package list
+sudo apt-get update
+
+# Install prerequisites
+sudo apt-get install -y ca-certificates curl gnupg
+
+# Add Docker's official GPG key
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Set up the Docker repository
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install Docker Engine and Docker Compose
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+## 2. Transfer or Clone the Project
+
+Bring your project code to the production server. If you are using Git:
+
+```bash
+git clone <your-repository-url> /opt/admission_mace
+cd /opt/admission_mace
+```
+
+## 3. Configure Production Secrets
+
+Before spinning up the containers, open the `docker-compose.yml` file and update the default passwords for security:
+
+```bash
+nano docker-compose.yml
+```
+
+**What to change in `docker-compose.yml`:**
+1. Under the `app` service:
+   - Change `app.baseURL=https://admission.macesoft.in/` to match your actual live domain.
+   - Change `database.default.password=mace_password` to a strong, secure password.
+2. Under the `db` service:
+   - Change `MYSQL_PASSWORD: mace_password` to match the password above.
+   - Change `MYSQL_ROOT_PASSWORD: strong_root_password` to a highly secure root password.
+3. Under the `phpmyadmin` service:
+   - Change `PMA_PASSWORD: strong_root_password` to match the MySQL Root Password above.
+
+Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
+
+## 4. Start the Application
+
+Once your passwords are secure, tell Docker to build the image and start the stack in the background:
+
+```bash
+sudo docker compose up -d --build
+```
+
+Docker will now:
+1. Download PHP, Apache, MySQL, and phpMyAdmin.
+2. Install all required PHP extensions (Intl, GD, Zip, MySQLi).
+3. Install CodeIgniter's Composer dependencies optimally.
+4. Set up the file permissions for the persistent `writable/` folder.
+5. Wire the web app, database, and phpMyAdmin together securely.
+
+## 5. Setup the Database Schema
+
+Since the database is brand new, you need to run CodeIgniter's database migrations to create the tables. 
+
+Run this command to execute migrations *inside* the running app container:
+
+```bash
+sudo docker exec -it mace_admission_app php spark migrate
+```
+
+## 6. Accessing Your Application
+
+Everything is now live!
+
+- **Main Application**: Accessible on port 80.
+  - URL: `http://<your-server-ip>/` (or your domain name if DNS is pointed).
+  
+- **Admin Dashboard**:
+  - URL: `http://<your-server-ip>/admin/login`
+  
+- **phpMyAdmin (Database Visualizer)**: Accessible on port 8080.
+  - URL: `http://<your-server-ip>:8080/`
+  - Login Username: `root`
+  - Login Password: `<your_MYSQL_ROOT_PASSWORD>`
+
+## 7. Useful Docker Commands for Maintenance
+
+- **View live application logs:**
+  ```bash
+  sudo docker compose logs -f app
+  ```
+- **Restart the application:**
+  ```bash
+  sudo docker compose restart
+  ```
+- **Stop everything safely:**
+  ```bash
+  sudo docker compose down
+  ```
+- **Update the app after pulling new code from git:**
+  ```bash
+  sudo docker compose up -d --build
+  ```
