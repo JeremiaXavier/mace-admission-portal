@@ -1,6 +1,7 @@
 FROM php:8.2-apache
 
 # Install required system dependencies
+# Note: No mysql-client needed - we use PHP mysqli directly in wait_for_db.php
 RUN apt-get update && apt-get install -y \
     libicu-dev \
     libpng-dev \

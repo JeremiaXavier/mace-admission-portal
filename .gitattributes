@@ -1,0 +1,4 @@
+# Force Unix line endings on shell scripts for Docker compatibility
+* text=auto
+entrypoint.sh text eol=lf
+entrypoint.windows.ps1 text eol=crlf
