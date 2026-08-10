@@ -1,69 +1,62 @@
-# CodeIgniter 4 Application Starter
+# 🎓 MACE Spot Admission Portal
 
-## What is CodeIgniter?
+![MACE Logo](https://macesoft.in/assets/admin/img/logo.png)
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+A modern, robust, and Dockerized web application built with CodeIgniter 4 to handle B.Tech Spot Admissions at **Mar Athanasius College of Engineering**.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+---
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## ✨ Features
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- **Dynamic Student Registration**: Secure multi-step wizard for students to submit their KEAM details, current admission status, and option preferences.
+- **Real-Time Validations**: Instant uniqueness checks on Mobile Numbers, Email Addresses, and KEAM Ranks via AJAX.
+- **Admin Dashboard**: Comprehensive dashboard for viewing and managing applicants across branches and categories.
+- **Advanced Exporting**: 1-click exporting to structured CSVs and beautifully formatted PDFs (using DOMPDF) complete with metadata and signature blocks.
+- **Interactive Allotment**: Admins can officially "Admit" students to specific branches, and seamlessly "Undo" admissions if a student changes their mind.
+- **Total State Control**: 1-click toggle to open or close the entire portal to new registrations.
+- **Dockerized**: 100% contained environment ready for immediate, frictionless deployment on any Linux machine.
 
-## Installation & updates
+---
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## 🛠 Tech Stack
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- **Backend:** PHP 8.2 & CodeIgniter 4
+- **Frontend:** Vanilla JS & Tailwind CSS (Custom compiled tokens)
+- **Database:** MySQL 8.0
+- **Containerization:** Docker & Docker Compose
+- **PDF Generation:** DOMPDF
 
-## Setup
+---
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## 🚀 Quick Start (Production)
 
-## Important Change with index.php
+Deploying the portal is incredibly simple. All dependencies (PHP, Apache, MySQL) are handled internally by Docker.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+1. **Install Docker** on your server.
+2. **Clone this repository:**
+   ```bash
+   git clone git@github.com:JeremiaXavier/mace-admission-portal.git
+   cd mace-admission-portal
+   ```
+3. **Secure your passwords** in `docker-compose.yml`.
+4. **Boot the stack:**
+   ```bash
+   sudo docker compose up -d --build
+   ```
+5. **Run Database Migrations:**
+   ```bash
+   sudo docker exec -it mace_admission_app php spark migrate
+   ```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+*(For detailed instructions, see the included `PRODUCTION_DEPLOYMENT.md`)*
 
-**Please** read the user guide for a better explanation of how CI4 works!
+---
 
-## Repository Management
+## 🔒 Security & Persistence
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+- **Session & Upload Persistence:** The `/writable` directory is mapped securely to a Docker volume, meaning your application configuration (`settings.json`) and session states survive container restarts.
+- **Hidden Credentials:** Database configuration uses secure internal Docker networking. The web application connects safely to the MySQL container without exposing database ports to the outside world.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+---
 
-## Server Requirements
-
-PHP version 8.2 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+> Designed & Built for Mar Athanasius College of Engineering.
