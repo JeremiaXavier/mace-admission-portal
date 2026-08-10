@@ -10,17 +10,14 @@ services:
     ports:
       - "80:80"
     environment:
-      - CI_ENVIRONMENT=production
-      # Update baseURL to your actual production domain
-      - app.baseURL=https://admission.macesoft.in/
-      
-      # Database Connection
-      - database.default.hostname=db
-      - database.default.database=mace_admission
-      - database.default.username=mace_user
-      - database.default.password=mace_password
-      - database.default.DBDriver=MySQLi
+      # These are read by entrypoint.sh to wait for MySQL before booting
+      DB_HOST: db
+      DB_USER: mace_user
+      DB_PASS: mace_password
+      DB_NAME: mace_admission
     volumes:
+      # Mount the .env file so CodeIgniter picks up all config at runtime
+      - ./env.production:/var/www/html/.env:ro
       # Persist the writable directory (uploads, session, cache, settings.json)
       - app_writable:/var/www/html/writable
     depends_on:

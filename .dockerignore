@@ -13,6 +13,5 @@ writable/uploads/*
 !writable/uploads/index.html
 tests
 phpunit.xml.dist
-docker-compose.yml
-Dockerfile
 .env
+env.production

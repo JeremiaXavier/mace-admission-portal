@@ -1,13 +1,14 @@
 #!/bin/bash
+set -e
 
-# Give the MySQL container a few seconds to initialize
-echo "Waiting for database to initialize..."
-sleep 10
+echo "Waiting for MySQL to be ready..."
+until mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" -e "SELECT 1" > /dev/null 2>&1; do
+  echo "  MySQL not ready yet. Retrying in 3 seconds..."
+  sleep 3
+done
 
-# Run CodeIgniter migrations automatically
-echo "Running database migrations..."
-php spark migrate
+echo "MySQL is ready! Running database migrations..."
+php spark migrate --no-interaction
 
-# Start Apache in the foreground
 echo "Starting Apache web server..."
 exec apache2-foreground

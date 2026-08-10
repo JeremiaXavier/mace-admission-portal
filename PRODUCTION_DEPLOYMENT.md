@@ -21,13 +21,19 @@ git clone <your-repository-url> /home/user/admission_mace
 cd /home/user/admission_mace
 ```
 
-**3. Build and Start Everything**
-*(You may want to edit `docker-compose.yml` first to set secure database passwords)*
+**3. Configure Your Production Environment**
+Open `env.production` and update your domain and passwords. Also update the matching passwords in `docker-compose.yml`:
+```bash
+nano env.production       # Set app.baseURL and database password
+nano docker-compose.yml   # Set matching MYSQL_PASSWORD and MYSQL_ROOT_PASSWORD
+```
+
+**4. Build and Start Everything**
 ```bash
 sudo docker compose up -d --build
 ```
 
-That's it! The container will automatically wait for the database to boot and run the migrations for you. You can now open a browser on that machine and go to `http://localhost`.
+That's it! The container will automatically wait for MySQL to be fully ready, then run the migrations for you. Open a browser and go to `http://localhost`.
 
 ---
 

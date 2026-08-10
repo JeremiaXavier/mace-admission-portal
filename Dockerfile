@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Install required system dependencies
+# Install required system dependencies + mysql-client (for entrypoint healthcheck)
 RUN apt-get update && apt-get install -y \
     libicu-dev \
     libpng-dev \
@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
+    default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions required by CodeIgniter 4 and Dompdf
