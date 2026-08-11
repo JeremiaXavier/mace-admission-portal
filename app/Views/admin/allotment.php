@@ -34,6 +34,7 @@
                 <option value="XS">Ex-servicemen (XS)</option>
                 <option value="PI">PI</option>
                 <option value="PT">PT</option>
+                <option value="TFW">Tuition Fee Waiver (TFW)</option>
             </select>
         </div>
 

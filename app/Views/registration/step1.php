@@ -66,7 +66,7 @@
                         <select name="eligible_category" required class="input-premium w-full bg-white/90 border border-slate-300 rounded-xl px-4 py-3 text-slate-800">
                             <option value="" disabled selected>Select Category...</option>
                             <?php 
-                            $cats = ['SM'=>'State Merit (SM)','EWS'=>'EWS','EZ'=>'Ezhava (EZ)','MU'=>'Muslim (MU)','BH'=>'Other Backward Hindu (BH)','LA'=>'Latin Catholic and Anglo Indian (LA)','BX'=>'Other Backward Christian (BX)','KU'=>'Kudumbi (KU)','VK'=>'Viswakarma and related communities (VK)','DV'=>'Dheevara and related communities (DV)','KN'=>'Kusavan and related communities (KN)','SC'=>'Scheduled Castes (SC)','ST'=>'Scheduled Tribes (ST)','OEC'=>'OEC','XS'=>'Ex-servicemen (XS)','PI'=>'PI','PT'=>'PT'];
+                            $cats = ['SM'=>'State Merit (SM)','EWS'=>'EWS','EZ'=>'Ezhava (EZ)','MU'=>'Muslim (MU)','BH'=>'Other Backward Hindu (BH)','LA'=>'Latin Catholic and Anglo Indian (LA)','BX'=>'Other Backward Christian (BX)','KU'=>'Kudumbi (KU)','VK'=>'Viswakarma and related communities (VK)','DV'=>'Dheevara and related communities (DV)','KN'=>'Kusavan and related communities (KN)','SC'=>'Scheduled Castes (SC)','ST'=>'Scheduled Tribes (ST)','OEC'=>'OEC','XS'=>'Ex-servicemen (XS)','PI'=>'PI','PT'=>'PT','TFW'=>'Tuition Fee Waiver (TFW)'];
                             foreach($cats as $code => $label): 
                                 $sel = set_value('eligible_category', $app['eligible_category'] ?? '') === $code ? 'selected' : '';
                             ?>
