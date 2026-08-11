@@ -38,7 +38,7 @@
                 </td>
                 <td style="width: 88%; text-align: center; border: none; vertical-align: middle; padding: 0; padding-right: 12%;">
                     <h1 style="margin: 0; font-size: 19px; color: #0a4275; text-transform: uppercase; font-weight: bold;">Mar Athanasius College of Engineering, Kothamangalam</h1>
-                    <h2 style="margin: 5px 0 0 0; font-size: 15px; color: #444;">B.Tech Spot Admission 2026</h2>
+                    <h2 style="margin: 5px 0 0 0; font-size: 15px; color: #444;">B.Tech Admission Portal</h2>
                 </td>
             </tr>
         </table>

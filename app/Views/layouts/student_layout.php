@@ -112,7 +112,7 @@
             
             <!-- Center: Title -->
             <div class="text-center">
-                <h1 class="text-xl md:text-3xl font-extrabold text-nic-darkblue uppercase tracking-wide">SPOT ADMISSION 2026</h1>
+                <h1 class="text-xl md:text-3xl font-extrabold text-nic-darkblue uppercase tracking-wide">ADMISSION PORTAL</h1>
             </div>
 
             <!-- Right: Accreditation Images -->

@@ -59,7 +59,7 @@ class ReportsController extends BaseController
 
         // ── Metadata Header ──
         fputcsv($out, ['Mar Athanasius College of Engineering, Kothamangalam']);
-        fputcsv($out, ['B.Tech Spot Admission 2026']);
+        fputcsv($out, ['B.Tech Admission Portal']);
         fputcsv($out, ['Applied Students Report']);
         fputcsv($out, ['Branch:', $branch]);
         fputcsv($out, ['Date of Export:', date('d-M-Y H:i:s')]);
@@ -174,7 +174,7 @@ class ReportsController extends BaseController
 
         // ── Metadata Header ──
         fputcsv($out, ['Mar Athanasius College of Engineering, Kothamangalam']);
-        fputcsv($out, ['B.Tech Spot Admission 2026']);
+        fputcsv($out, ['B.Tech Admission Portal']);
         fputcsv($out, [$reportTitle]);
         if ($branch) fputcsv($out, ['Branch:', $branch]);
         fputcsv($out, ['Date of Export:', date('d-M-Y H:i:s')]);

@@ -39,7 +39,7 @@
             
             <!-- Center: Title -->
             <div class="text-center flex flex-col items-center">
-                <h1 class="text-lg md:text-2xl font-extrabold text-nic-darkblue uppercase tracking-wide">SPOT ADMISSION 2026</h1>
+                <h1 class="text-lg md:text-2xl font-extrabold text-nic-darkblue uppercase tracking-wide">ADMISSION PORTAL</h1>
                 <span class="bg-nic-blue text-white text-xs font-bold px-3 py-0.5 rounded-full mt-1 uppercase tracking-widest shadow-sm">Admin Dashboard</span>
             </div>
 

@@ -154,7 +154,7 @@ class AllotmentController extends BaseController
         
         // ── Metadata Header ──
         fputcsv($out, ['Mar Athanasius College of Engineering, Kothamangalam']);
-        fputcsv($out, ['B.Tech Spot Admission 2026']);
+        fputcsv($out, ['B.Tech Admission Portal']);
         fputcsv($out, ['Applicant List']);
         fputcsv($out, ['Category:', $categoryLabel]);
         fputcsv($out, ['Date of Export:', date('d-M-Y H:i:s')]);
@@ -277,7 +277,7 @@ class AllotmentController extends BaseController
         
         // Metadata Header
         fputcsv($out, ['Mar Athanasius College of Engineering, Kothamangalam']);
-        fputcsv($out, ['B.Tech Spot Admission 2026']);
+        fputcsv($out, ['B.Tech Admission Portal']);
         fputcsv($out, ['Branch Rank List']);
         fputcsv($out, ['Branch:', $branchLabel]);
         fputcsv($out, ['Category:', $categoryLabel]);

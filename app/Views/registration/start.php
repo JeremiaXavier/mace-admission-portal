@@ -5,7 +5,7 @@
     <div class="glass-panel rounded-md overflow-hidden relative shadow-xl">
         <div class="p-8 md:p-12 text-center">
             
-            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Spot admission 2026</h2>
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Admission Portal</h2>
             <p class="text-slate-500 font-medium mb-10">Choose an option below to begin or resume your registration process.</p>
 
             <?php if(session()->getFlashdata('error')): ?>
