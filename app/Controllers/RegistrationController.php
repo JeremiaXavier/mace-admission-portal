@@ -158,20 +158,21 @@ class RegistrationController extends BaseController
             'eligible_category' => $this->request->getPost('eligible_category'),
         ];
 
+
         if ($app_no) {
             $db->table('spot_registrations')->where('application_no', $app_no)->update($data);
         } else {
-            // Generate 8 digit application no
-            do {
-                $app_no = str_pad((string) mt_rand(10000000, 99999999), 8, '0', STR_PAD_LEFT);
-                $check = $db->table('spot_registrations')->where('application_no', $app_no)->get()->getRowArray();
-            } while ($check);
-            
-            $data['application_no'] = $app_no;
+            // Insert row first (without application_no) to get the auto-increment ID
             $data['status'] = 'draft';
             $data['registered_at'] = date('Y-m-d H:i:s');
-            
             $db->table('spot_registrations')->insert($data);
+
+            // Use the auto-generated row ID to build the application number
+            $insert_id = $db->insertID();
+            $app_no = 'MACE-' . $insert_id;
+
+            // Update the row with the generated application number
+            $db->table('spot_registrations')->where('id', $insert_id)->update(['application_no' => $app_no]);
         }
         
         return redirect()->to("/register/step2/$app_no");
