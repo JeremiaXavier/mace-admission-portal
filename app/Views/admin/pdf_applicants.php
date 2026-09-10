@@ -61,10 +61,10 @@
         <thead>
             <tr>
                 <th width="8%" class="text-center">Rank</th>
-                <th width="15%">Roll No</th>
-                <th width="27%">Applicant Name</th>
-                <th width="8%" class="text-center">Cat.</th>
-                <th width="42%">Options</th>
+                <th width="20%">Roll No</th>
+                <th width="32%">Applicant Name</th>
+                <th width="20%">Phone</th>
+                <th width="20%" class="text-center">Cat.</th>
             </tr>
         </thead>
         <tbody>
@@ -76,8 +76,8 @@
                     <td class="text-center"><strong><?= esc($app['rank']) ?></strong></td>
                     <td><?= esc($app['roll_no']) ?></td>
                     <td><?= esc($app['name']) ?></td>
+                    <td><?= esc($app['phone']) ?></td>
                     <td class="text-center"><?= esc($app['category']) ?></td>
-                    <td style="font-size: 10px; line-height: 1.4;"><?= $app['options'] ?></td>
                 </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

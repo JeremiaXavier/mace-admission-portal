@@ -208,21 +208,12 @@ class AllotmentController extends BaseController
         $applicants = [];
         
         while ($row = $query->getUnbufferedRow('array')) {
-            $options = [];
-            for ($i = 1; $i <= 7; $i++) {
-                if (!empty($row['option_' . $i])) {
-                    $brCode = $row['option_' . $i];
-                    $brDisplay = $this->branches[$brCode] ?? $brCode;
-                    $options[] = "<strong>$i:</strong> " . $brDisplay;
-                }
-            }
-            
             $applicants[] = [
                 'rank' => $row['entrance_rank'],
                 'roll_no' => $row['entrance_roll_no'],
                 'name' => $row['full_name'],
-                'category' => $this->cats[$row['eligible_category']] ?? $row['eligible_category'],
-                'options' => implode('<br>', $options)
+                'phone' => $row['mobile_no'],
+                'category' => $this->cats[$row['eligible_category']] ?? $row['eligible_category']
             ];
         }
 
