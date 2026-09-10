@@ -60,19 +60,21 @@
     <table>
         <thead>
             <tr>
+                <th width="5%" class="text-center">Sl No</th>
                 <th width="8%" class="text-center">Rank</th>
                 <th width="20%">Roll No</th>
                 <th width="32%">Applicant Name</th>
                 <th width="20%">Phone</th>
-                <th width="20%" class="text-center">Cat.</th>
+                <th width="15%" class="text-center">Cat.</th>
             </tr>
         </thead>
         <tbody>
             <?php if(empty($applicants)): ?>
-            <tr><td colspan="5" class="text-center" style="padding:20px;">No applicants found for this category.</td></tr>
+            <tr><td colspan="6" class="text-center" style="padding:20px;">No applicants found for this category.</td></tr>
             <?php else: ?>
-                <?php foreach($applicants as $app): ?>
+                <?php $sl_no = 1; foreach($applicants as $app): ?>
                 <tr>
+                    <td class="text-center"><?= $sl_no++ ?></td>
                     <td class="text-center"><strong><?= esc($app['rank']) ?></strong></td>
                     <td><?= esc($app['roll_no']) ?></td>
                     <td><?= esc($app['name']) ?></td>
