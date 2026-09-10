@@ -48,6 +48,7 @@ $routes->group('admin', ['filter' => 'adminauth'], static function($routes) {
     $routes->get('reports',          'Admin\ReportsController::index');
     $routes->get('reports/admitted', 'Admin\ReportsController::exportAdmitted');
     $routes->get('reports/applied',  'Admin\ReportsController::exportApplied');
+    $routes->get('reports/category_wise', 'Admin\ReportsController::exportCategoryWise');
     $routes->get('reports/all',      'Admin\ReportsController::exportAll');
 });
 

@@ -68,6 +68,36 @@
         </form>
     </div>
 
+    <!-- Category Wise Admitted Report -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:col-span-2">
+        <div class="flex items-center mb-4">
+            <div class="bg-purple-100 p-2 rounded-lg text-purple-700 mr-3 shadow-sm border border-purple-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-gray-800">Category-Wise Branch Report</h3>
+                <p class="text-sm text-gray-600 mt-1">Export a list of admitted students filtered by a specific category, grouped by their allotted branch.</p>
+            </div>
+        </div>
+        
+        <form action="<?= base_url('admin/reports/category_wise') ?>" method="GET" class="flex flex-col sm:flex-row items-end gap-3 mt-4">
+            <div class="flex-1 w-full max-w-sm">
+                <label class="block text-xs font-bold text-gray-700 mb-1">Select Category</label>
+                <select name="category" required class="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-nic-blue focus:border-nic-blue sm:text-sm">
+                    <option value="">-- Choose Category --</option>
+                    <?php 
+                    $cats = ['SM'=>'State Merit (SM)','EWS'=>'EWS','EZ'=>'Ezhava (EZ)','MU'=>'Muslim (MU)','BH'=>'Other Backward Hindu (BH)','LA'=>'Latin Catholic and Anglo Indian (LA)','BX'=>'Other Backward Christian (BX)','KU'=>'Kudumbi (KU)','VK'=>'Viswakarma and related communities (VK)','DV'=>'Dheevara and related communities (DV)','KN'=>'Kusavan and related communities (KN)','SC'=>'Scheduled Castes (SC)','ST'=>'Scheduled Tribes (ST)','OEC'=>'OEC','XS'=>'Ex-servicemen (XS)','PI'=>'PI','PT'=>'PT','TFW'=>'Tuition Fee Waiver (TFW)'];
+                    foreach($cats as $val => $label): ?>
+                        <option value="<?= $val ?>"><?= $label ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <button type="submit" class="bg-nic-blue hover:bg-nic-darkblue text-white px-5 py-2 rounded-md text-sm font-bold shadow-sm transition w-full sm:w-auto">
+                Export CSV
+            </button>
+        </form>
+    </div>
+
     <!-- Full Database Dump -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 md:col-span-2">
         <div class="flex items-center justify-between">
