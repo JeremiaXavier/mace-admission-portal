@@ -62,15 +62,16 @@
             <tr>
                 <th width="5%" class="text-center">Sl No</th>
                 <th width="8%" class="text-center">Rank</th>
-                <th width="20%">Roll No</th>
-                <th width="32%">Applicant Name</th>
-                <th width="20%">Phone</th>
-                <th width="15%" class="text-center">Cat.</th>
+                <th width="12%">Roll No</th>
+                <th width="18%">Applicant Name</th>
+                <th width="14%">Phone</th>
+                <th width="7%" class="text-center">Cat.</th>
+                <th width="36%">Options</th>
             </tr>
         </thead>
         <tbody>
             <?php if(empty($applicants)): ?>
-            <tr><td colspan="6" class="text-center" style="padding:20px;">No applicants found for this category.</td></tr>
+            <tr><td colspan="7" class="text-center" style="padding:20px;">No applicants found for this category.</td></tr>
             <?php else: ?>
                 <?php $sl_no = 1; foreach($applicants as $app): ?>
                 <tr>
@@ -80,6 +81,7 @@
                     <td><?= esc($app['name']) ?></td>
                     <td><?= esc($app['phone']) ?></td>
                     <td class="text-center"><?= esc($app['category']) ?></td>
+                    <td style="font-size: 10px; line-height: 1.4;"><?= $app['options'] ?></td>
                 </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
